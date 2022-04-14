@@ -1,0 +1,14 @@
+{
+  "name": "big-mouth",
+  "version": "1.0.0",
+  "description": "talks too much (converts text to speech, lmao)",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Raymond Tukpe <rtukpe@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "google-tts-api": "^2.0.2"
+  }
+}
