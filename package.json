@@ -9,6 +9,7 @@
   "author": "Raymond Tukpe <rtukpe@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "fluent-ffmpeg": "^2.1.2",
     "google-tts-api": "^2.0.2"
   }
 }
