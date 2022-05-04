@@ -6,28 +6,28 @@ const shellExec = require("./exec");
 const merge = require("./fluent");
 
 const run = async () => {
+  //clean audio folder and old merged audio
 
-//clean audio folder and old merged audio
-  
   const path = `${__dirname}/audio`;
-  fs.readdirSync(path).forEach(f => fs.rmSync(`${path}/${f}`));
 
- 
+  if (!fs.existsSync(path)) {
+    fs.mkdirSync(path);
+  }
 
-    try {
+  fs.readdirSync(path).forEach((f) => fs.rmSync(`${path}/${f}`));
+
+  try {
     if (fs.existsSync("out.mp3")) {
-     fs.unlink('out.mp3', function (err) {
-    // if no error, file has been deleted successfully
-    console.log('File deleted!');
-});
+      fs.unlink("out.mp3", function (err) {
+        // if no error, file has been deleted successfully
+        console.log("File deleted!");
+      });
     }
-    } catch(err) {
-    console.error(err)
-    }
-  
+  } catch (err) {
+    console.error(err);
+  }
 
-
-  const text = `hello lol man and woman has a call and there is no other way to go even if you do you do not know where you are going to add an extra ninety five characters and test again and get to thirty and find u Contestants. The war among frameworks is a hot topic in the JavaScript community. hello lol man and woman has a call and there is no other way to go even if you do you do not know where you are going to add an extra ninety five characters and test again and get to thirty and find u Contestants. The war among frameworks is a hot topic in the JavaScript community.`;
+  const text = `hello lol man and woman has a call and there is no other way to go even if you do you do not know where you are going to add an extra. hello lol man and woman has a call and there is no other way to go even if you do you do not know where you are going to add an extra ninety five characters and test again and get to thirty and find u Contestants. The war among frameworks is a hot topic in the JavaScript community.`;
   console.log(text.length);
 
   // get base64 text`
@@ -43,9 +43,9 @@ const run = async () => {
     console.log(res);
   }
 
-  const totalfiles =Math.round((text.length) / 200) 
+  const totalfiles = Math.ceil(text.length / 200);
 
-  await merge(totalfiles)
+  await merge(totalfiles);
 };
 
 /**
