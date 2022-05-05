@@ -2,10 +2,31 @@
 const fs = require("fs");
 const googleTTS = require("google-tts-api");
 const https = require("https");
-const shellExec = require("./exec");
+const merge = require("./fluent");
 
 const run = async () => {
-  const text = `We want Convoy to run without any dependencies. Today when you install loki you don't connect it to a db. Meaning we want to own all the tech even if it's embedded. This might mean we'd switch our main storage from mongodb to something smaller like SQLite and having an robust disk db solution. We'd also want to not depend on Redis or only depend on Redis for both storage and queue. This decision has helped to separate critical parts of code to different packages and we’ve seen increased reliability in our production instance. In the past we used to scale up both server and worker, now we can scale up server and worker workloads independently.`;
+  //clean audio folder and old merged audio
+
+  const path = `${__dirname}/audio`;
+
+  if (!fs.existsSync(path)) {
+    fs.mkdirSync(path);
+  }
+
+  fs.readdirSync(path).forEach((f) => fs.rmSync(`${path}/${f}`));
+
+  try {
+    if (fs.existsSync("out.mp3")) {
+      fs.unlink("out.mp3", function (err) {
+        // if no error, file has been deleted successfully
+        console.log("File deleted!");
+      });
+    }
+  } catch (err) {
+    console.error(err);
+  }
+
+  const text = `hello lol man and woman has a call and there is no other way to go even if you do you do not know where you are going to add an extra. hello lol man and woman has a call and there is no other way to go even if you do you do not know where you are going to add an extra ninety five characters and test again and get to thirty and find u Contestants. The war among frameworks is a hot topic in the JavaScript community.`;
   console.log(text.length);
 
   // get base64 text`
@@ -17,15 +38,13 @@ const run = async () => {
 
   for (let i = 0; i < results.length; i++) {
     const result = results[i];
-    const res = await download(result.url, `aud-${i}.mp3`);
+    const res = await download(result.url, `${i}.mp3`);
     console.log(res);
   }
 
-  const cmd = `ffmpeg -i aud-0.mp3 -i aud-1.mp3  -i aud-2.mp3 -i aud-3.mp3 \
-  -filter_complex '[0:0][1:0][2:0][3:0]concat=n=4:v=0:a=1[out]' -map '[out]' aud.mp3`;
+  const totalfiles = Math.ceil(text.length / 200);
 
-  const out = await shellExec(cmd);
-  console.log(out);
+  await merge(totalfiles);
 };
 
 /**
@@ -36,7 +55,8 @@ const run = async () => {
 const download = (url, file) => {
   return new Promise((resolve) => {
     https.get(url, { timeout: 10000 }, (res) => {
-      const writeStream = fs.createWriteStream(file);
+      const path = `${__dirname}/audio/${file}`;
+      const writeStream = fs.createWriteStream(path);
 
       res.pipe(writeStream);
       writeStream.on("finish", () => {
