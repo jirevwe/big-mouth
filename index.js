@@ -2,7 +2,6 @@
 const fs = require("fs");
 const googleTTS = require("google-tts-api");
 const https = require("https");
-const shellExec = require("./exec");
 const merge = require("./fluent");
 
 const run = async () => {
