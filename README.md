@@ -7,7 +7,7 @@ Big Mouth is a tool that converts large and small Blogpost from raw-text into an
 Use the package manager NPM to install Big Mouth.
 
 ```bash
-npm install
+$ npm ci
 ```
 
 ## How Does Big Mouth Work
@@ -21,24 +21,28 @@ With the help of a special package FFMPEG the splitted audio files will then be 
 ```bash
 Big Mouth
 
+  Converts blog posts to mp3 audio :D
+
   Usage:
-  npm start --args
+  node index --args
 
   Examples:
-  node index -u=url -o=pathname.mp3
-  node index --url=websiteurl --output=pathname.mp3
+  node index -u=https://some-site/blog-post -o=pathToFile.mp3
+
+  node index --url=https://some-site/blog-post --output=pathToFile.mp3
 
 
 Options
 
-  -u, --url string      required, Website url of blogPost
-  -o, --output string   required, the name of the merged audio file ,example (output.mp3)
+  -u, --url string      required, Website url of blog post, example (https://some-site/blog-post)
+  -o, --output string   required, the path of the output file, example (./output.mp3)
+  -h, --help            Print this usage guide.
 ```
 
-## Usage 
-How to start Big Mouth 
+## Usage
+
+How to start Big Mouth
 
 ```bash
-node index --url=websiteurl --output=pathname.mp3
+$ node index -u=https://some-site/blog-post -o=pathToFile.mp3
 ```
-

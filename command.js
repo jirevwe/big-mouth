@@ -6,13 +6,16 @@ const optionDefinitions = [
 
 const sections = [
   {
-    header: "Big Mouth",
-    content: `Usage:
-    npm start --args
+    header: `Big Mouth`,
+    content: `Converts blog posts to mp3 audio :D
+    
+    Usage:
+    node index --args
     
     Examples:
-    node index -u=url -o=pathname.mp3 
-    node index --url=websiteurl --output=pathname.mp3
+    node index -u=https://some-site/blog-post -o=pathToFile.mp3
+    
+    node index --url=https://some-site/blog-post --output=pathToFile.mp3
     `,
   },
   {
