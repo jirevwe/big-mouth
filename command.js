@@ -1,6 +1,3 @@
-const commandLineUsage = require("command-line-usage");
-const commandLineArgs = require("command-line-args");
-
 const optionDefinitions = [
   { name: "help", alias: "h", type: Boolean },
   { name: "url", alias: "u", type: String },
