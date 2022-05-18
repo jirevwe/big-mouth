@@ -9,13 +9,16 @@ const optionDefinitions = [
 
 const sections = [
   {
-    header: "Text-Audio Converter",
-    content: `Usage:
-    npm start --args
+    header: `Big Mouth`,
+    content: `Converts blog posts to audio :D
+    
+    Usage:
+    node index --args
     
     Examples:
-    yarn start -u=url -o=pathname.mp3 
-    yarn start --url=websiteurl --output=pathname.mp3
+    node index -u=https://some-site/blog-post -o=pathToFile.mp3
+    
+    node index --url=https://some-site/blog-post --output=pathToFile.mp3
     `,
   },
   {
@@ -26,21 +29,24 @@ const sections = [
         alias: "u",
         type: String,
         description:
-          "required, Website url of blogPost",
+          "required, Website url of blog post, example (https://some-site/blog-post)",
       },
       {
         name: "output",
         alias: "o",
         type: String,
         description:
-          "required, the name of the merged audio file ,example (output.mp3)",
-      },  
+          "required, the path of the output file, example (./output.mp3)",
+      },
+      {
+        name: "help",
+        alias: "h",
+        type: Boolean,
+        description: "Print this usage guide.",
+      },
     ],
   },
 ];
-
-// const usage = commandLineUsage(sections)
-// const options = commandLineArgs(optionDefinitions)
 
 module.exports = {
   sections: sections,
