@@ -9,13 +9,13 @@ const optionDefinitions = [
 
 const sections = [
   {
-    header: "Text-Audio Converter",
+    header: "Big Mouth👄",
     content: `Usage:
     npm start --args
     
     Examples:
-    yarn start -u=url -o=pathname.mp3 
-    yarn start --url=websiteurl --output=pathname.mp3
+    node index -u=url -o=pathname.mp3 
+    node index --url=websiteurl --output=pathname.mp3
     `,
   },
   {
