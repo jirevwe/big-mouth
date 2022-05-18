@@ -1,16 +1,16 @@
 # Big Mouth👄
 
-Big Mouth👄 is a tool that converts large and small Blogpost from raw-text into an audio file.
+Big Mouth is a tool that converts large and small Blogpost from raw-text into an audio file.
 
 ## Installation
 
-Use the package manager NPM to install Big Mouth👄.
+Use the package manager NPM to install Big Mouth.
 
 ```bash
 npm install
 ```
 
-## How Does Big Mouth👄 Work
+## How Does Big Mouth Work
 
 Thr program start by getting the text from the url passed in the cli when the code started, passes the url through a function that converts the blogpost into text.
 The text will then be passed to google-tts-api to convert the text into splitted audio files .
@@ -19,7 +19,7 @@ With the help of a special package FFMPEG the splitted audio files will then be 
 ## CLI
 
 ```bash
-Big Mouth👄
+Big Mouth
 
   Usage:
   npm start --args
@@ -36,7 +36,7 @@ Options
 ```
 
 ## Usage 
-How to start Big Mouth👄 
+How to start Big Mouth 
 
 ```bash
 node index --url=websiteurl --output=pathname.mp3

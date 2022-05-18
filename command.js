@@ -6,7 +6,7 @@ const optionDefinitions = [
 
 const sections = [
   {
-    header: "Big Mouth👄",
+    header: "Big Mouth",
     content: `Usage:
     npm start --args
     
