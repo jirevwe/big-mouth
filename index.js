@@ -1,70 +1,45 @@
-//@ts-check
-const fs = require("fs");
-const googleTTS = require("google-tts-api");
-const https = require("https");
-const merge = require("./fluent");
+const commandLineArgs = require("command-line-args");
+const commandLineUsage = require("command-line-usage");
+const { optionDefinitions, sections } = require("./command");
+const { parseHTMLPage } = require("./html");
+const { convertTextToAudio } = require("./convert");
 
-const run = async () => {
-  //clean audio folder and old merged audio
-
-  const path = `${__dirname}/audio`;
-
-  if (!fs.existsSync(path)) {
-    fs.mkdirSync(path);
-  }
-
-  fs.readdirSync(path).forEach((f) => fs.rmSync(`${path}/${f}`));
+async function run() {
+  const usage = commandLineUsage(sections);
 
   try {
-    if (fs.existsSync("out.mp3")) {
-      fs.unlink("out.mp3", function (err) {
-        // if no error, file has been deleted successfully
-        console.log("File deleted!");
-      });
+    const options = commandLineArgs(optionDefinitions);
+
+    const requiredArgs = optionDefinitions
+      .map((it) => it.name)
+      .filter((it) => it !== "help");
+    const argKeys = Object.keys(options).filter((it) => it !== "help");
+
+    if (options.help || argKeys.length === 0) {
+      console.log(usage);
+      process.exit(0);
     }
-  } catch (err) {
-    console.error(err);
+
+    const missingArgs = [];
+    for (const param of requiredArgs) {
+      if (!argKeys.includes(param)) missingArgs.push(param);
+    }
+
+    if (missingArgs.length > 0) {
+      console.log(`missing required arguments: ${missingArgs.join(", ")}`);
+      console.log(usage);
+
+      process.exit(1);
+    }
+
+    const text = await parseHTMLPage(options["url"]);
+    await convertTextToAudio(text, options["output"]);
+  } catch (error) {
+    console.log(error.message);
+    console.log(usage);
+
+    process.exit(1);
   }
-
-  const text = `hello lol man and woman has a call and there is no other way to go even if you do you do not know where you are going to add an extra. hello lol man and woman has a call and there is no other way to go even if you do you do not know where you are going to add an extra ninety five characters and test again and get to thirty and find u Contestants. The war among frameworks is a hot topic in the JavaScript community.`;
-  console.log(text.length);
-
-  // get base64 text`
-  const results = googleTTS.getAllAudioUrls(text, {
-    lang: "en",
-    slow: false,
-    host: "https://translate.google.com",
-  });
-
-  for (let i = 0; i < results.length; i++) {
-    const result = results[i];
-    const res = await download(result.url, `${i}.mp3`);
-    console.log(res);
-  }
-
-  const totalfiles = Math.ceil(text.length / 200);
-
-  await merge(totalfiles);
-};
-
-/**
- *
- * @param {string} url the url of the resource
- * @param {string} file the file path
- */
-const download = (url, file) => {
-  return new Promise((resolve) => {
-    https.get(url, { timeout: 10000 }, (res) => {
-      const path = `${__dirname}/audio/${file}`;
-      const writeStream = fs.createWriteStream(path);
-
-      res.pipe(writeStream);
-      writeStream.on("finish", () => {
-        writeStream.close();
-        resolve("Download Complete");
-      });
-    });
-  });
-};
+}
 
 run();
