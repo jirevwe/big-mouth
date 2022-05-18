@@ -1,6 +1,3 @@
-const commandLineUsage = require("command-line-usage");
-const commandLineArgs = require("command-line-args");
-
 const optionDefinitions = [
   { name: "help", alias: "h", type: Boolean },
   { name: "url", alias: "u", type: String },
@@ -26,21 +23,24 @@ const sections = [
         alias: "u",
         type: String,
         description:
-          "required, Website url of blogPost",
+          "required, Website url of blog post, example (https://some-site/blog-post)",
       },
       {
         name: "output",
         alias: "o",
         type: String,
         description:
-          "required, the name of the merged audio file ,example (output.mp3)",
-      },  
+          "required, the path of the output file, example (./output.mp3)",
+      },
+      {
+        name: "help",
+        alias: "h",
+        type: Boolean,
+        description: "Print this usage guide.",
+      },
     ],
   },
 ];
-
-// const usage = commandLineUsage(sections)
-// const options = commandLineArgs(optionDefinitions)
 
 module.exports = {
   sections: sections,
