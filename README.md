@@ -1,6 +1,6 @@
 # Big Mouth👄
 
-Big Mouth is a tool that converts large and small Blogpost from raw-text into an audio file.
+Big Mouth is a tool that converts blogpost contents into an mp3 audio file.
 
 ## Installation
 
@@ -12,9 +12,9 @@ npm install
 
 ## How Does Big Mouth Work
 
-Thr program start by getting the text from the url passed in the cli when the code started, passes the url through a function that converts the blogpost into text.
+The program start by converting the blogpost from the url into plain text.
 The text will then be passed to google-tts-api to convert the text into splitted audio files .
-With the help of a special package FFMPEG the splitted audio files will then be merged back into on whole file and be stored in filename given to the cli at the start of the program.
+With the help of a special package FFMPEG the splitted audio files will then be merged back into one whole file and be stored in filename given to the CLI at the start of the program.
 
 ## CLI
 
