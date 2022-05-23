@@ -50,7 +50,7 @@ const convertTextToAudio = async (rawText, pathOfOutputFile) => {
       download(downloads.url, `${index}.mp3`)
     );
 
-  mergeAudioFiles(totalfiles, pathOfOutputFile, timing);
+  return mergeAudioFiles(totalfiles, pathOfOutputFile, timing);
 };
 
 /**

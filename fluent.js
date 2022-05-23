@@ -9,22 +9,28 @@ const path = `${__dirname}/audio`;
  * @param {*} pathOfOutputFile the path of the output file
  */
 function mergeAudioFiles(fileCount, pathOfOutputFile, timing) {
-  let files = [];
-  for (let i = 0; i < fileCount; i++) {
-    files.push(`audio/${i}.mp3`);
-  }
+  return new Promise((resolve, reject) => {
+    let files = [];
+    for (let i = 0; i < fileCount; i++) {
+      files.push(`audio/${i}.mp3`);
+    }
 
-  files
-    .reduce((prev, curr) => prev.input(curr), ffmpeg())
-    .on("error", (err) => console.log("an error happened: " + err.message))
-    .on("end", () => {
-      console.log("files have been merged succesfully");
-      fs.readdirSync(path).forEach((f) => fs.rmSync(`${path}/${f}`));
+    files
+      .reduce((prev, curr) => prev.input(curr), ffmpeg())
+      .on("error", (err) => {
+        console.log("an error happened: " + err.message);
+        reject(err);
+      })
+      .on("end", () => {
+        console.log("files have been merged succesfully");
+        fs.readdirSync(path).forEach((f) => fs.rmSync(`${path}/${f}`));
 
-      timing.end();
-      console.log(`Finished merging file in ${timing.toHumanReadableTime()}`);
-    })
-    .mergeToFile(pathOfOutputFile);
+        timing.end();
+        console.log(`Finished merging file in ${timing.toHumanReadableTime()}`);
+        resolve(true);
+      })
+      .mergeToFile(pathOfOutputFile);
+  });
 }
 
 exports.mergeAudioFiles = mergeAudioFiles;

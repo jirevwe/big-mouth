@@ -33,7 +33,10 @@ async function run() {
     }
 
     const text = await parseHTMLPage(options["url"]);
-    await convertTextToAudio(text, options["output"]);
+    const value = await convertTextToAudio(text, options["output"]);
+    if (value) {
+      console.log("blog post conversion completed successfully");
+    }
   } catch (error) {
     console.log(error.message);
     console.log(usage);
