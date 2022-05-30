@@ -1,5 +1,3 @@
-//const request = require("request");
-//const cheerio = require("cheerio");
 const {Readability} = require("@mozilla/readability")
 const { JSDOM } = require("jsdom")
 const axios = require("axios")
